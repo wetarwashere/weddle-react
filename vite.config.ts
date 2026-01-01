@@ -10,5 +10,5 @@ export default defineConfig({
       },
     }),
   ],
-  base: "/weddle-react",
+  base: "/weddle-react/",
 })
