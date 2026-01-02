@@ -41,7 +41,7 @@ function ResultPage({ getApiData, setApiData, wasWinning, score, apiData }: Resu
         <h1>{wasWinning ? "Jawabanmu benar, selamat" : "Jawabanmu salah, coba lagi"}</h1>
         <button onClick={getBack}>Coba lagi</button>
         <h1 className='web-score'>Score: {score}</h1>
-        <h1 className='answer-text'>{!wasWinning && apiData?.jawaban}</h1>
+        <h1 className='answer-text'>{apiData?.jawaban}</h1>
       </div>
     </>
   )

@@ -24,7 +24,7 @@ function QuestionPage({ apiData, value, setValue, checkAnswer, setWasWinning }: 
 
       <div className='input-box'>
         <h1>{apiData?.soal}</h1>
-        <input className='web-input' value={value} placeholder='Masukkan tebakanmu' onChange={(event) => setValue(event.target.value)} autoFocus />
+        <input className='web-input' value={value} placeholder='Masukkan tebakanmu' onChange={(event) => setValue(event.target.value)} onKeyDown={(event) => event.key === "Enter" && checkAnswer()} autoFocus />
         <button className='web-button' onClick={(event) => {
           const buttonText = event.currentTarget.innerText
 

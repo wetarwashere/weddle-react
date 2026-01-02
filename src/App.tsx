@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Routes, Route, useNavigate } from 'react-router'
 import axios from 'axios'
+import stringSimilarity from 'string-similarity'
 import ResultPage from './pages/result/ResultPage'
 import HomePage from './pages/home/HomePage'
 import QuestionPage from './pages/question/QuestionPage'
@@ -30,13 +31,16 @@ function App() {
       return
     }
 
-    if (value.trim().toLowerCase() === apiData?.jawaban.toLowerCase()) {
+    const score = stringSimilarity.compareTwoStrings(value.trim().toLowerCase(), apiData?.jawaban.toLowerCase())
+
+    if (score > 0) {
       setWasWinning(true)
       setScore((previous) => previous + 1)
       setValue("")
       navigate("/result")
     } else {
       setWasWinning(false)
+      setScore((previous) => previous > 0 ? previous - 1 : previous)
       setValue("")
       navigate("/result")
     }
