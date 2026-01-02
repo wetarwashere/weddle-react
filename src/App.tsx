@@ -6,17 +6,17 @@ import HomePage from './pages/home/HomePage'
 import QuestionPage from './pages/question/QuestionPage'
 import './App.css'
 
-interface ApiData {
+type ApiData = {
   soal: string;
   jawaban: string;
 }
 
 function App() {
-  const [apiData, setApiData] = useState<ApiData>({
-    jawaban: "Tunggu....",
+  const [apiData, setApiData] = useState<ApiData | null>({
+    jawaban: "Jawaban....",
     soal: "Tunggu sebentar....",
   })
-  const getApiData = async () => {
+  const getApiData = async (): Promise<void> => {
     const response = await axios.get("https://zelapioffciall.koyeb.app/games/tekateki")
     setApiData(response.data.result)
   }
@@ -25,7 +25,7 @@ function App() {
   const [score, setScore] = useState<number>(0)
   const navigate = useNavigate()
 
-  function checkAnswer() {
+  function checkAnswer(): void {
     if (value.trim() === "") {
       return
     }
@@ -43,7 +43,7 @@ function App() {
   }
 
   useEffect(() => {
-    const fetchApiData = async () => {
+    const fetchApiData = async (): Promise<void> => {
       await getApiData()
     }
 

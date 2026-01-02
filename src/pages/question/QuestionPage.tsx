@@ -2,12 +2,20 @@ import { type Dispatch, type SetStateAction } from 'react'
 import { useNavigate } from 'react-router'
 import '../General.css'
 
-interface ApiData {
+type ApiData = {
   soal: string;
   jawaban: string;
 }
 
-function QuestionPage({ apiData, value, setValue, checkAnswer, setWasWinning }: { apiData: ApiData, value: string, setValue: Dispatch<SetStateAction<string>>, checkAnswer: () => void, setWasWinning: Dispatch<SetStateAction<boolean>> }) {
+interface QuestionPageProps {
+  apiData: ApiData | null;
+  value: string;
+  setValue: Dispatch<SetStateAction<string>>;
+  checkAnswer: () => void;
+  setWasWinning: Dispatch<SetStateAction<boolean>>;
+}
+
+function QuestionPage({ apiData, value, setValue, checkAnswer, setWasWinning }: QuestionPageProps) {
   const navigate = useNavigate()
 
   return (

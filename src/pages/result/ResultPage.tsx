@@ -3,12 +3,20 @@ import type { Dispatch, SetStateAction } from 'react'
 import '../General.css'
 import './ResultPage.css'
 
-interface ApiData {
+type ApiData = {
   soal: string;
   jawaban: string;
 }
 
-function ResultPage({ getApiData, setApiData, wasWinning, score, apiData }: { getApiData: () => Promise<void>, setApiData: Dispatch<SetStateAction<ApiData>>, wasWinning: boolean, score: number, apiData: ApiData }) {
+interface ResultPageProps {
+  getApiData: () => Promise<void>;
+  setApiData: Dispatch<SetStateAction<ApiData | null>>;
+  wasWinning: boolean;
+  score: number;
+  apiData: ApiData | null
+}
+
+function ResultPage({ getApiData, setApiData, wasWinning, score, apiData }: ResultPageProps) {
   const navigate = useNavigate()
 
   function getBack() {
@@ -33,7 +41,7 @@ function ResultPage({ getApiData, setApiData, wasWinning, score, apiData }: { ge
         <h1>{wasWinning ? "Jawabanmu benar, selamat" : "Jawabanmu salah, coba lagi"}</h1>
         <button onClick={getBack}>Coba lagi</button>
         <h1 className='web-score'>Score: {score}</h1>
-        <h1 className='answer-text'>{!wasWinning && apiData.jawaban}</h1>
+        <h1 className='answer-text'>{!wasWinning && apiData?.jawaban}</h1>
       </div>
     </>
   )
