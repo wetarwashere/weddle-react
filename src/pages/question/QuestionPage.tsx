@@ -2,7 +2,7 @@ import { type Dispatch, type SetStateAction } from 'react'
 import { useNavigate } from 'react-router'
 import '../General.css'
 
-type ApiData = {
+interface ApiData {
   soal: string;
   jawaban: string;
 }

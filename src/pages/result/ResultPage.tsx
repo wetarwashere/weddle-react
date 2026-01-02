@@ -8,7 +8,7 @@ interface ApiData {
   jawaban: string;
 }
 
-function ResultPage({ getApiData, setApiData, wasWinning, score, apiData }: { getApiData: () => void, setApiData: Dispatch<SetStateAction<ApiData>>, wasWinning: boolean, score: number, apiData: ApiData }) {
+function ResultPage({ getApiData, setApiData, wasWinning, score, apiData }: { getApiData: () => Promise<void>, setApiData: Dispatch<SetStateAction<ApiData>>, wasWinning: boolean, score: number, apiData: ApiData }) {
   const navigate = useNavigate()
 
   function getBack() {
