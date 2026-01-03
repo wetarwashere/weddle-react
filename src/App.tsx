@@ -39,12 +39,10 @@ function App() {
     if (resultScore > 0) {
       setWasWinning(true)
       setScore((previous) => previous + 1)
-      setValue("")
       navigate("/result")
     } else {
       setWasWinning(false)
       setScore((previous) => previous > 0 ? previous - 1 : previous)
-      setValue("")
       navigate("/result")
     }
   }
@@ -61,7 +59,7 @@ function App() {
     <Routes>
       <Route index element={<HomePage />} />
       <Route path='/question' element={<QuestionPage apiData={apiData} value={value} setValue={setValue} checkAnswer={checkAnswer} setWasWinning={setWasWinning} />} />
-      <Route path='/result' element={<ResultPage getApiData={getApiData} setApiData={setApiData} wasWinning={wasWinning} score={score} apiData={apiData} />} />
+      <Route path='/result' element={<ResultPage getApiData={getApiData} setApiData={setApiData} setValue={setValue} wasWinning={wasWinning} score={score} apiData={apiData} />} />
     </Routes>
   )
 }

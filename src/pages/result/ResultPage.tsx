@@ -11,15 +11,17 @@ type ApiData = {
 interface ResultPageProps {
   getApiData: () => Promise<void>;
   setApiData: Dispatch<SetStateAction<ApiData | null>>;
+  setValue: Dispatch<SetStateAction<string>>;
   wasWinning: boolean;
   score: number;
   apiData: ApiData | null
 }
 
-function ResultPage({ getApiData, setApiData, wasWinning, score, apiData }: ResultPageProps) {
+function ResultPage({ getApiData, setApiData, setValue, wasWinning, score, apiData }: ResultPageProps) {
   const navigate = useNavigate()
 
   function getBack() {
+    setValue("")
     navigate("/question")
     setApiData((previous) => {
       if (!previous) return previous
