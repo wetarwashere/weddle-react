@@ -1,4 +1,4 @@
-import { type Dispatch, type SetStateAction } from 'react'
+import React, { useState, type Dispatch, type SetStateAction } from 'react'
 import { useNavigate } from 'react-router'
 import '../General.css'
 
@@ -16,7 +16,40 @@ interface QuestionPageProps {
 }
 
 function QuestionPage({ apiData, value, setValue, checkAnswer, setWasWinning }: QuestionPageProps) {
+  const [buttonText, setButtonText] = useState("Nyerah")
+  const [inputKey, setInputKey] = useState<string | null>(null)
   const navigate = useNavigate()
+
+  function surrender() {
+    setWasWinning(false)
+    navigate("/result")
+  }
+
+  function inputKeyHandler(event: React.KeyboardEvent<HTMLInputElement>) {
+    const currentKey = event.key
+
+    setInputKey(currentKey)
+
+    if (currentKey !== "Enter") return
+
+    if (buttonText === "Nyerah") {
+      surrender()
+    } else {
+      checkAnswer()
+    }
+  }
+
+  function submitHandler(event: React.MouseEvent<HTMLButtonElement>) {
+    const currentText = event.currentTarget.innerText
+
+    setButtonText(currentText)
+
+    if (buttonText === "Nyerah") {
+      surrender()
+    } else {
+      checkAnswer()
+    }
+  }
 
   return (
     <div className='web-data'>
@@ -24,17 +57,8 @@ function QuestionPage({ apiData, value, setValue, checkAnswer, setWasWinning }: 
 
       <div className='input-box'>
         <h1>{apiData?.soal}</h1>
-        <input className='web-input' value={value} placeholder='Masukkan tebakanmu' onChange={(event) => setValue(event.target.value)} onKeyDown={(event) => event.key === "Enter" && checkAnswer()} autoFocus />
-        <button className='web-button' onClick={(event) => {
-          const buttonText = event.currentTarget.innerText
-
-          if (buttonText === "Nyerah") {
-            setWasWinning(false)
-            navigate("/result")
-          } else {
-            checkAnswer()
-          }
-        }}>{value.trim() === "" ? "Nyerah" : "Jawab"}</button>
+        <input className='web-input' value={value} placeholder='Masukkan tebakanmu' onChange={(event) => setValue(event.target.value)} onKeyDown={inputKeyHandler} autoFocus />
+        <button className='web-button' onClick={submitHandler}>{value.trim() === "" ? "Nyerah" : "Jawab"}</button>
       </div>
     </div >
   )
