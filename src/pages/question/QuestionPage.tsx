@@ -30,7 +30,7 @@ function QuestionPage({ apiData, value, setValue, checkAnswer, setWasWinning }: 
 
     setInputKey(currentKey)
 
-    if (currentKey !== "Enter") return
+    if (inputKey !== "Enter") return
 
     if (buttonText === "Nyerah") {
       surrender()
