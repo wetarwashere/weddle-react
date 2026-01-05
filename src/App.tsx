@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 import { Routes, Route, useNavigate } from 'react-router'
-import { stringSimilarity } from 'string-similarity-js'
 import axios from 'axios'
 import ResultPage from './pages/result/ResultPage'
 import HomePage from './pages/home/HomePage'
@@ -34,9 +33,7 @@ function App() {
       return
     }
 
-    const resultScore: number = stringSimilarity(inputValue, answerData)
-
-    if (resultScore > 0) {
+    if (inputValue === answerData) {
       setWasWinning(true)
       setScore((previous) => previous + 1)
       navigate("/result")
