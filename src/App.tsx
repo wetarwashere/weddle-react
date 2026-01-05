@@ -55,7 +55,7 @@ function App() {
   return (
     <Routes>
       <Route index element={<HomePage />} />
-      <Route path='/question' element={<QuestionPage apiData={apiData} value={value} setValue={setValue} checkAnswer={checkAnswer} setWasWinning={setWasWinning} />} />
+      <Route path='/question' element={<QuestionPage apiData={apiData} value={value} setValue={setValue} checkAnswer={checkAnswer} setWasWinning={setWasWinning} setScore={setScore} />} />
       <Route path='/result' element={<ResultPage getApiData={getApiData} setApiData={setApiData} setValue={setValue} wasWinning={wasWinning} score={score} apiData={apiData} />} />
     </Routes>
   )

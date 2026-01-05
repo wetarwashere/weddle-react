@@ -13,13 +13,16 @@ interface QuestionPageProps {
   setValue: Dispatch<SetStateAction<string>>;
   checkAnswer: () => void;
   setWasWinning: Dispatch<SetStateAction<boolean>>;
+  setScore: Dispatch<SetStateAction<number>>
 }
 
-function QuestionPage({ apiData, value, setValue, checkAnswer }: QuestionPageProps) {
+function QuestionPage({ apiData, value, setValue, checkAnswer, setWasWinning, setScore }: QuestionPageProps) {
   const buttonRef = useRef<HTMLButtonElement | null>(null)
   const navigate = useNavigate()
 
   function surrender() {
+    setWasWinning(false)
+    setScore(0)
     navigate("/result")
   }
 
