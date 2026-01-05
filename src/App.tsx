@@ -39,7 +39,7 @@ function App() {
       navigate("/result")
     } else {
       setWasWinning(false)
-      setScore((previous) => previous > 0 ? previous - 1 : previous)
+      setScore(0)
       navigate("/result")
     }
   }
