@@ -1,4 +1,4 @@
-import React, { useState, type Dispatch, type SetStateAction } from 'react'
+import React, { useRef, type Dispatch, type SetStateAction } from 'react'
 import { useNavigate } from 'react-router'
 import '../General.css'
 
@@ -15,36 +15,26 @@ interface QuestionPageProps {
   setWasWinning: Dispatch<SetStateAction<boolean>>;
 }
 
-function QuestionPage({ apiData, value, setValue, checkAnswer, setWasWinning }: QuestionPageProps) {
-  const [buttonText, setButtonText] = useState("Nyerah")
-  const [inputKey, setInputKey] = useState<string | null>(null)
+function QuestionPage({ apiData, value, setValue, checkAnswer }: QuestionPageProps) {
+  const buttonRef = useRef<HTMLButtonElement | null>(null)
   const navigate = useNavigate()
 
   function surrender() {
-    setWasWinning(false)
     navigate("/result")
   }
 
   function inputKeyHandler(event: React.KeyboardEvent<HTMLInputElement>) {
-    const currentKey = event.key
+    if (event.key !== "Enter") return
 
-    setInputKey(currentKey)
-
-    if (inputKey !== "Enter") return
-
-    if (buttonText === "Nyerah") {
+    if (buttonRef.current?.textContent === "Nyerah") {
       surrender()
     } else {
       checkAnswer()
     }
   }
 
-  function submitHandler(event: React.MouseEvent<HTMLButtonElement>) {
-    const currentText = event.currentTarget.innerText
-
-    setButtonText(currentText)
-
-    if (buttonText === "Nyerah") {
+  function submitHandler() {
+    if (buttonRef.current?.textContent === "Nyerah") {
       surrender()
     } else {
       checkAnswer()
@@ -58,7 +48,7 @@ function QuestionPage({ apiData, value, setValue, checkAnswer, setWasWinning }: 
       <div className='input-box'>
         <h1>{apiData?.soal}</h1>
         <input className='web-input' value={value} placeholder='Masukkan tebakanmu' onChange={(event) => setValue(event.target.value)} onKeyDown={inputKeyHandler} autoFocus />
-        <button className='web-button' onClick={submitHandler}>{value.trim() === "" ? "Nyerah" : "Jawab"}</button>
+        <button className='web-button' ref={buttonRef} onClick={submitHandler}>{value.trim() === "" ? "Nyerah" : "Jawab"}</button>
       </div>
     </div >
   )
